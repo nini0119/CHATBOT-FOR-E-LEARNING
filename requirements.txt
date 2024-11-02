@@ -1,0 +1,1 @@
+streamlit pandas langchain-openai langchain-community faiss-cpu 
