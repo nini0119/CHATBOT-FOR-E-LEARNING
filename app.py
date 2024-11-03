@@ -7,6 +7,7 @@ from langchain.chains import RetrievalQAWithSourcesChain, LLMChain
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 from langchain_core.documents import Document
 from langchain.chains.question_answering import load_qa_chain
+from langchain.chains import LLMChain
 
 # Récupération sécurisée de la clé API
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
@@ -18,6 +19,8 @@ class StreamlitChatbot:
             st.session_state.messages = []
             st.session_state.rag_chain = None
             st.session_state.quiz_chain = None
+            st.session_state.videos_robotics = None
+            st.session_state.model = None
 
         if not st.session_state.initialized:
             self._initialize_system()
@@ -27,7 +30,7 @@ class StreamlitChatbot:
         """Initialize the system configuration"""
         try:
             # Initialisation du modèle
-            self.model = ChatOpenAI(
+            st.session_state.model = ChatOpenAI(
                 temperature=0.7,
                 model_name="gpt-3.5-turbo"
             )
@@ -37,13 +40,13 @@ class StreamlitChatbot:
 
             # Chargement des données
             try:
-                self.videos_robotics = pd.read_csv("final_videos_robotics (2).csv")
+                st.session_state.videos_robotics = pd.read_csv("final_videos_robotics (2).csv")
             except FileNotFoundError as e:
                 st.error(f"Erreur de chargement du fichier CSV: {str(e)}")
                 return
 
             # Préparation des documents
-            self.docs = self._prepare_documents(self.videos_robotics)
+            self.docs = self._prepare_documents(st.session_state.videos_robotics)
             
             if not self.docs:
                 st.error("❌ Aucun document n'a été préparé.")
@@ -73,7 +76,7 @@ class StreamlitChatbot:
 
             # Configuration de la chaîne QA
             qa_chain = load_qa_chain(
-                llm=self.model,
+                llm=st.session_state.model,
                 chain_type="stuff",
                 prompt=qa_prompt,
             )
@@ -103,7 +106,7 @@ class StreamlitChatbot:
             [Continue for all 5 questions]
             """)
             
-            st.session_state.quiz_chain = LLMChain(llm=self.model, prompt=quiz_prompt)
+            st.session_state.quiz_chain = LLMChain(llm=st.session_state.model, prompt=quiz_prompt)
 
         except Exception as e:
             st.error(f"❌ Erreur lors de la configuration des chaînes: {str(e)}")
@@ -134,11 +137,11 @@ class StreamlitChatbot:
 
     def _generate_quiz(self, video_title):
         """Génère un quiz basé sur le titre de la vidéo"""
-        if self.videos_robotics is None:
+        if st.session_state.videos_robotics is None:
             return "❌ Erreur: Les données des vidéos n'ont pas pu être chargées."
 
-        matching_videos = self.videos_robotics[
-            self.videos_robotics['title'].str.contains(video_title, case=False, na=False)
+        matching_videos = st.session_state.videos_robotics[
+            st.session_state.videos_robotics['title'].str.contains(video_title, case=False, na=False)
         ]
 
         if matching_videos.empty:
@@ -150,6 +153,7 @@ class StreamlitChatbot:
             response = st.session_state.quiz_chain.invoke({"content": video['transcript_text'][:2000]})
             return response['text']
         except Exception as e:
+            st.error(f"Erreur détaillée: {str(e)}")
             return f"Erreur lors de la génération du quiz: {str(e)}"
 
     def run(self):
