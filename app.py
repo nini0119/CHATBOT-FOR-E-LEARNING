@@ -7,6 +7,7 @@ from langchain.chains import RetrievalQAWithSourcesChain
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 from langchain_core.documents import Document
 from langchain.chains.question_answering import load_qa_chain
+from langchain.chains import LLMChain
 
 # Récupération sécurisée de la clé API
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
