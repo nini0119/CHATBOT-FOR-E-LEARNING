@@ -3,9 +3,10 @@ import pandas as pd
 import os
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain.chains import RetrievalQA, LLMChain
+from langchain.chains import RetrievalQAWithSourcesChain
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 from langchain_core.documents import Document
+from langchain.chains.question_answering import load_qa_chain
 
 # Récupération sécurisée de la clé API
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
@@ -37,7 +38,7 @@ class StreamlitChatbot:
                 self.videos_robotics = pd.read_csv("final_videos_robotics (2).csv")
             except FileNotFoundError as e:
                 st.error(f"Erreur de chargement du fichier CSV: {str(e)}")
-                self.videos_robotics = None  # Empêche d'autres erreurs si le fichier est manquant
+                self.videos_robotics = None
                 return
 
             # Préparation des documents
@@ -60,19 +61,20 @@ class StreamlitChatbot:
         # Configuration de la chaîne RAG
         retriever = self.vectorstore.as_retriever(search_kwargs={"k": 2})
         
-        system_prompt = """
-        Answer the question based on the provided context. Be concise.
-        Context: {context}
-        Question: {question}
-        """
-        
-        prompt = ChatPromptTemplate.from_template(system_prompt)
-        
-        # Initialisation de la chaîne RAG avec une configuration simplifiée
-        self.rag_chain = RetrievalQA(
+        # Updated RAG chain initialization
+        qa_chain = load_qa_chain(
             llm=self.model,
-            retriever=retriever,
-            return_source_documents=True
+            chain_type="stuff",
+            prompt=ChatPromptTemplate.from_template("""
+            Answer the question based on the provided context. Be concise.
+            Context: {context}
+            Question: {question}
+            """)
+        )
+        
+        self.rag_chain = RetrievalQAWithSourcesChain(
+            combine_documents_chain=qa_chain,
+            retriever=retriever
         )
 
         # Configuration de la chaîne de quiz
@@ -134,7 +136,7 @@ class StreamlitChatbot:
         video = matching_videos.iloc[0]
         
         try:
-            response = self.quiz_chain.run(content=video['transcript_text'][:2000])
+            response = self.quiz_chain.invoke({"content": video['transcript_text'][:2000]})
             return response
         except Exception as e:
             return f"Erreur lors de la génération du quiz: {str(e)}"
@@ -154,11 +156,11 @@ class StreamlitChatbot:
             
             if query:
                 try:
-                    response = self.rag_chain({"query": query})
+                    response = self.rag_chain({"question": query})
                     
                     # Ajouter les messages à l'historique
                     st.session_state.messages.append({"role": "user", "content": query})
-                    st.session_state.messages.append({"role": "assistant", "content": response['result']})
+                    st.session_state.messages.append({"role": "assistant", "content": response['answer']})
                     
                     # Afficher l'historique des messages
                     for message in st.session_state.messages:
@@ -168,10 +170,8 @@ class StreamlitChatbot:
                             st.write(f"🤖 Assistant: {message['content']}")
                             
                     # Afficher la source
-                    if response.get("source_documents"):
-                        doc = response["source_documents"][0]
-                        st.info(f"📚 Source: Vidéo {doc.metadata['video_id']}, "
-                               f"Titre: {doc.metadata['title']}")
+                    if response.get("sources"):
+                        st.info(f"📚 Sources: {response['sources']}")
 
                 except Exception as e:
                     st.error(f"❌ Une erreur s'est produite: {str(e)}")
