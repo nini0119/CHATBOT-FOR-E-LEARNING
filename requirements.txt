@@ -1,1 +1,6 @@
-streamlit pandas langchain-openai langchain-community faiss-cpu 
+streamlit
+pandas
+langchain-openai
+langchain-community
+faiss-cpu
+
