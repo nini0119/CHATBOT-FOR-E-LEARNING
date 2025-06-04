@@ -1,0 +1,2440 @@
+{
+    "name": "creation messages",
+    "flow": [
+        {
+            "id": 1,
+            "module": "util:SetVariable2",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "name": "id",
+                "scope": "roundtrip",
+                "value": "2540"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Variable name",
+                        "required": true
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "type": "any",
+                        "label": "Variable value"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "any",
+                        "label": "id"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "google-sheets:filterRows",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 8750298
+            },
+            "mapper": {
+                "from": "drive",
+                "filter": [
+                    [
+                        {
+                            "a": "A",
+                            "b": "{{1.id}}",
+                            "o": "text:equal"
+                        }
+                    ]
+                ],
+                "sheetId": "Sheet1",
+                "sortOrder": "asc",
+                "spreadsheetId": "1gYmyJWe-KXzNubPTmbb5GdEY3DQcFWDF6c9wUF2ERyg",
+                "tableFirstRow": "A1:Z1",
+                "includesHeaders": true,
+                "valueRenderOption": "FORMATTED_VALUE",
+                "dateTimeRenderOption": "FORMATTED_STRING"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "from": {
+                            "label": "Select from My Drive"
+                        },
+                        "orderBy": {
+                            "mode": "chose"
+                        },
+                        "sheetId": {
+                            "mode": "chose",
+                            "label": "Sheet1"
+                        },
+                        "sortOrder": {
+                            "mode": "chose",
+                            "label": "Ascending"
+                        },
+                        "spreadsheetId": {
+                            "mode": "chose",
+                            "label": "Grille de présence Mai 2025 - 2 au 6 juin.xlsx"
+                        },
+                        "tableFirstRow": {
+                            "label": "A-Z"
+                        },
+                        "includesHeaders": {
+                            "mode": "chose",
+                            "label": "Yes"
+                        },
+                        "valueRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted value"
+                        },
+                        "dateTimeRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted string"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "My Google connection (team5@eugeniaschool.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "from",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "valueRenderOption",
+                        "type": "select",
+                        "label": "Value render option",
+                        "validate": {
+                            "enum": [
+                                "FORMATTED_VALUE",
+                                "UNFORMATTED_VALUE",
+                                "FORMULA"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dateTimeRenderOption",
+                        "type": "select",
+                        "label": "Date and time render option",
+                        "validate": {
+                            "enum": [
+                                "SERIAL_NUMBER",
+                                "FORMATTED_STRING"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "select",
+                        "label": "Spreadsheet ID",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "select",
+                        "label": "Sheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "includesHeaders",
+                        "type": "select",
+                        "label": "Table contains headers",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tableFirstRow",
+                        "type": "select",
+                        "label": "Column range",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "A1:Z1",
+                                "A1:BZ1",
+                                "A1:CZ1",
+                                "A1:DZ1",
+                                "A1:MZ1",
+                                "A1:ZZ1",
+                                "A1:AZZ1",
+                                "A1:BZZ1",
+                                "A1:CZZ1",
+                                "A1:DZZ1",
+                                "A1:MZZ1",
+                                "A1:ZZZ1"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "type": "filter",
+                        "label": "Filter",
+                        "options": "rpc://google-sheets/2/rpcGetFilterKeys?includesHeaders=true"
+                    },
+                    {
+                        "name": "orderBy",
+                        "type": "select",
+                        "label": "Order by"
+                    },
+                    {
+                        "name": "sortOrder",
+                        "type": "select",
+                        "label": "Sort order",
+                        "validate": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "__ROW_NUMBER__",
+                        "type": "number",
+                        "label": "Row number"
+                    },
+                    {
+                        "name": "__SPREADSHEET_ID__",
+                        "type": "text",
+                        "label": "Spreadsheet ID"
+                    },
+                    {
+                        "name": "__SHEET__",
+                        "type": "text",
+                        "label": "Sheet"
+                    },
+                    {
+                        "name": "0",
+                        "type": "text",
+                        "label": "2 au 6 juin (A)"
+                    },
+                    {
+                        "name": "1",
+                        "type": "text",
+                        "label": "(B)"
+                    },
+                    {
+                        "name": "2",
+                        "type": "text",
+                        "label": "(C)"
+                    },
+                    {
+                        "name": "3",
+                        "type": "text",
+                        "label": "(D)"
+                    },
+                    {
+                        "name": "4",
+                        "type": "text",
+                        "label": "(E)"
+                    },
+                    {
+                        "name": "5",
+                        "type": "text",
+                        "label": "(F)"
+                    },
+                    {
+                        "name": "6",
+                        "type": "text",
+                        "label": "(G)"
+                    },
+                    {
+                        "name": "7",
+                        "type": "text",
+                        "label": "(H)"
+                    },
+                    {
+                        "name": "8",
+                        "type": "text",
+                        "label": "(I)"
+                    },
+                    {
+                        "name": "9",
+                        "type": "text",
+                        "label": "(J)"
+                    },
+                    {
+                        "name": "10",
+                        "type": "text",
+                        "label": "(K)"
+                    },
+                    {
+                        "name": "11",
+                        "type": "text",
+                        "label": "(L)"
+                    },
+                    {
+                        "name": "12",
+                        "type": "text",
+                        "label": "(M)"
+                    },
+                    {
+                        "name": "13",
+                        "type": "text",
+                        "label": "(N)"
+                    },
+                    {
+                        "name": "14",
+                        "type": "text",
+                        "label": "(O)"
+                    },
+                    {
+                        "name": "15",
+                        "type": "text",
+                        "label": "(P)"
+                    },
+                    {
+                        "name": "16",
+                        "type": "text",
+                        "label": "(Q)"
+                    },
+                    {
+                        "name": "17",
+                        "type": "text",
+                        "label": "(R)"
+                    },
+                    {
+                        "name": "18",
+                        "type": "text",
+                        "label": "(S)"
+                    },
+                    {
+                        "name": "19",
+                        "type": "text",
+                        "label": "(T)"
+                    },
+                    {
+                        "name": "20",
+                        "type": "text",
+                        "label": "(U)"
+                    },
+                    {
+                        "name": "21",
+                        "type": "text",
+                        "label": "(V)"
+                    },
+                    {
+                        "name": "22",
+                        "type": "text",
+                        "label": "(W)"
+                    },
+                    {
+                        "name": "23",
+                        "type": "text",
+                        "label": "(X)"
+                    },
+                    {
+                        "name": "24",
+                        "type": "text",
+                        "label": "(Y)"
+                    },
+                    {
+                        "name": "25",
+                        "type": "text",
+                        "label": "(Z)"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 41,
+            "module": "google-sheets:filterRows",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 8750298
+            },
+            "mapper": {
+                "from": "drive",
+                "filter": [
+                    [
+                        {
+                            "a": "A",
+                            "b": "{{1.id}}",
+                            "o": "text:equal"
+                        }
+                    ]
+                ],
+                "sheetId": "sheet1",
+                "sortOrder": "asc",
+                "spreadsheetId": "{{2.`__SPREADSHEET_ID__`}}",
+                "tableFirstRow": "A1:Z1",
+                "includesHeaders": false,
+                "valueRenderOption": "FORMATTED_VALUE",
+                "dateTimeRenderOption": "FORMATTED_STRING"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "from": {
+                            "label": "Select from My Drive"
+                        },
+                        "orderBy": {
+                            "mode": "chose"
+                        },
+                        "sheetId": {
+                            "mode": "edit"
+                        },
+                        "sortOrder": {
+                            "mode": "chose",
+                            "label": "Ascending"
+                        },
+                        "spreadsheetId": {
+                            "mode": "edit"
+                        },
+                        "tableFirstRow": {
+                            "label": "A-Z"
+                        },
+                        "includesHeaders": {
+                            "mode": "chose",
+                            "label": "No"
+                        },
+                        "valueRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted value"
+                        },
+                        "dateTimeRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted string"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "My Google connection (team5@eugeniaschool.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "from",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "valueRenderOption",
+                        "type": "select",
+                        "label": "Value render option",
+                        "validate": {
+                            "enum": [
+                                "FORMATTED_VALUE",
+                                "UNFORMATTED_VALUE",
+                                "FORMULA"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dateTimeRenderOption",
+                        "type": "select",
+                        "label": "Date and time render option",
+                        "validate": {
+                            "enum": [
+                                "SERIAL_NUMBER",
+                                "FORMATTED_STRING"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "select",
+                        "label": "Spreadsheet ID",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "select",
+                        "label": "Sheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "includesHeaders",
+                        "type": "select",
+                        "label": "Table contains headers",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tableFirstRow",
+                        "type": "select",
+                        "label": "Column range",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "A1:Z1",
+                                "A1:BZ1",
+                                "A1:CZ1",
+                                "A1:DZ1",
+                                "A1:MZ1",
+                                "A1:ZZ1",
+                                "A1:AZZ1",
+                                "A1:BZZ1",
+                                "A1:CZZ1",
+                                "A1:DZZ1",
+                                "A1:MZZ1",
+                                "A1:ZZZ1"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "type": "filter",
+                        "label": "Filter",
+                        "options": "rpc://google-sheets/2/rpcGetFilterKeys?includesHeaders=false"
+                    },
+                    {
+                        "name": "orderBy",
+                        "type": "select",
+                        "label": "Order by"
+                    },
+                    {
+                        "name": "sortOrder",
+                        "type": "select",
+                        "label": "Sort order",
+                        "validate": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "__ROW_NUMBER__",
+                        "type": "number",
+                        "label": "Row number"
+                    },
+                    {
+                        "name": "__SPREADSHEET_ID__",
+                        "type": "text",
+                        "label": "Spreadsheet ID"
+                    },
+                    {
+                        "name": "__SHEET__",
+                        "type": "text",
+                        "label": "Sheet"
+                    },
+                    {
+                        "name": "0",
+                        "type": "text",
+                        "label": "A"
+                    },
+                    {
+                        "name": "1",
+                        "type": "text",
+                        "label": "B"
+                    },
+                    {
+                        "name": "2",
+                        "type": "text",
+                        "label": "C"
+                    },
+                    {
+                        "name": "3",
+                        "type": "text",
+                        "label": "D"
+                    },
+                    {
+                        "name": "4",
+                        "type": "text",
+                        "label": "E"
+                    },
+                    {
+                        "name": "5",
+                        "type": "text",
+                        "label": "F"
+                    },
+                    {
+                        "name": "6",
+                        "type": "text",
+                        "label": "G"
+                    },
+                    {
+                        "name": "7",
+                        "type": "text",
+                        "label": "H"
+                    },
+                    {
+                        "name": "8",
+                        "type": "text",
+                        "label": "I"
+                    },
+                    {
+                        "name": "9",
+                        "type": "text",
+                        "label": "J"
+                    },
+                    {
+                        "name": "10",
+                        "type": "text",
+                        "label": "K"
+                    },
+                    {
+                        "name": "11",
+                        "type": "text",
+                        "label": "L"
+                    },
+                    {
+                        "name": "12",
+                        "type": "text",
+                        "label": "M"
+                    },
+                    {
+                        "name": "13",
+                        "type": "text",
+                        "label": "N"
+                    },
+                    {
+                        "name": "14",
+                        "type": "text",
+                        "label": "O"
+                    },
+                    {
+                        "name": "15",
+                        "type": "text",
+                        "label": "P"
+                    },
+                    {
+                        "name": "16",
+                        "type": "text",
+                        "label": "Q"
+                    },
+                    {
+                        "name": "17",
+                        "type": "text",
+                        "label": "R"
+                    },
+                    {
+                        "name": "18",
+                        "type": "text",
+                        "label": "S"
+                    },
+                    {
+                        "name": "19",
+                        "type": "text",
+                        "label": "T"
+                    },
+                    {
+                        "name": "20",
+                        "type": "text",
+                        "label": "U"
+                    },
+                    {
+                        "name": "21",
+                        "type": "text",
+                        "label": "V"
+                    },
+                    {
+                        "name": "22",
+                        "type": "text",
+                        "label": "W"
+                    },
+                    {
+                        "name": "23",
+                        "type": "text",
+                        "label": "X"
+                    },
+                    {
+                        "name": "24",
+                        "type": "text",
+                        "label": "Y"
+                    },
+                    {
+                        "name": "25",
+                        "type": "text",
+                        "label": "Z"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 48,
+            "module": "google-sheets:getCell",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 8750298
+            },
+            "mapper": {
+                "cell": "K1",
+                "select": "map",
+                "sheetId": "sheet1",
+                "spreadsheetId": "{{2.`__SPREADSHEET_ID__`}}",
+                "valueRenderOption": "FORMATTED_VALUE",
+                "dateTimeRenderOption": "FORMATTED_STRING"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "select": {
+                            "label": "Enter manually"
+                        },
+                        "valueRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted value"
+                        },
+                        "dateTimeRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted string"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "My Google connection (team5@eugeniaschool.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "select",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "list",
+                                "fromAll",
+                                "map"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "cell",
+                        "type": "text",
+                        "label": "Cell",
+                        "required": true
+                    },
+                    {
+                        "name": "valueRenderOption",
+                        "type": "select",
+                        "label": "Value render option",
+                        "validate": {
+                            "enum": [
+                                "FORMATTED_VALUE",
+                                "UNFORMATTED_VALUE",
+                                "FORMULA"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dateTimeRenderOption",
+                        "type": "select",
+                        "label": "Date and time render option",
+                        "validate": {
+                            "enum": [
+                                "SERIAL_NUMBER",
+                                "FORMATTED_STRING"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "text",
+                        "label": "Spreadsheet ID",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "text",
+                        "label": "Sheet Name",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "util:SetVariables",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "scope": "roundtrip",
+                "variables": [
+                    {
+                        "name": "emoji_lundi",
+                        "value": "{{if(lower(2.`2`) = \"tt\"; \"🏠\"; \"🏢\")}}"
+                    },
+                    {
+                        "name": "emoji_mardi",
+                        "value": "{{if(lower(2.`3`) = \"tt\"; \"🏠\"; \"🏢\")}}"
+                    },
+                    {
+                        "name": "emoji_mercredi",
+                        "value": "{{if(lower(2.`4`) = \"tt\"; \"🏠\"; \"🏢\")}}"
+                    },
+                    {
+                        "name": "emoji_jeudi",
+                        "value": "{{if(lower(2.`5`) = \"tt\"; \"🏠\"; \"🏢\")}}"
+                    },
+                    {
+                        "name": "emoji_vendredi",
+                        "value": "{{if(lower(2.`6`) = \"tt\"; \"🏠\"; \"🏢\")}}"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1200,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        },
+                        "variables": {
+                            "items": [
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "variables",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Variable name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "any",
+                                "label": "Variable value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Variables"
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "emoji_lundi",
+                        "type": "any",
+                        "label": "emoji_lundi"
+                    },
+                    {
+                        "name": "emoji_mardi",
+                        "type": "any",
+                        "label": "emoji_mardi"
+                    },
+                    {
+                        "name": "emoji_mercredi",
+                        "type": "any",
+                        "label": "emoji_mercredi"
+                    },
+                    {
+                        "name": "emoji_jeudi",
+                        "type": "any",
+                        "label": "emoji_jeudi"
+                    },
+                    {
+                        "name": "emoji_vendredi",
+                        "type": "any",
+                        "label": "emoji_vendredi"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "module": "util:SetVariables",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "scope": "roundtrip",
+                "variables": [
+                    {
+                        "name": "label_lundi",
+                        "value": "{{if(lower(2.`2`) = \"tt\"; \"TT\"; \"Bureau\")}}"
+                    },
+                    {
+                        "name": "label_mardi",
+                        "value": "{{if(lower(2.`3`) = \"tt\"; \"TT\"; \"Bureau\")}}"
+                    },
+                    {
+                        "name": "label_mercredi",
+                        "value": "{{if(lower(2.`4`) = \"tt\"; \"TT\"; \"Bureau\")}}"
+                    },
+                    {
+                        "name": "label_jeudi",
+                        "value": "{{if(lower(2.`5`) = \"tt\"; \"TT\"; \"Bureau\")}}"
+                    },
+                    {
+                        "name": "label_vendredi",
+                        "value": "{{if(lower(2.`6`) = \"tt\"; \"TT\"; \"Bureau\")}}"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1500,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        },
+                        "variables": {
+                            "items": [
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "variables",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Variable name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "any",
+                                "label": "Variable value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Variables"
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "label_lundi",
+                        "type": "any",
+                        "label": "label_lundi"
+                    },
+                    {
+                        "name": "label_mardi",
+                        "type": "any",
+                        "label": "label_mardi"
+                    },
+                    {
+                        "name": "label_mercredi",
+                        "type": "any",
+                        "label": "label_mercredi"
+                    },
+                    {
+                        "name": "label_jeudi",
+                        "type": "any",
+                        "label": "label_jeudi"
+                    },
+                    {
+                        "name": "label_vendredi",
+                        "type": "any",
+                        "label": "label_vendredi"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 18,
+            "module": "google-sheets:filterRows",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 8750298
+            },
+            "mapper": {
+                "from": "drive",
+                "limit": "1000",
+                "sheetId": "Sheet1",
+                "sortOrder": "asc",
+                "spreadsheetId": "1gYmyJWe-KXzNubPTmbb5GdEY3DQcFWDF6c9wUF2ERyg",
+                "tableFirstRow": "A1:Z1",
+                "includesHeaders": true,
+                "valueRenderOption": "FORMATTED_VALUE",
+                "dateTimeRenderOption": "FORMATTED_STRING"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1800,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "from": {
+                            "label": "Select from My Drive"
+                        },
+                        "orderBy": {
+                            "mode": "chose"
+                        },
+                        "sheetId": {
+                            "mode": "chose",
+                            "label": "Sheet1"
+                        },
+                        "sortOrder": {
+                            "mode": "chose",
+                            "label": "Ascending"
+                        },
+                        "spreadsheetId": {
+                            "mode": "chose",
+                            "label": "Grille de présence Mai 2025 - 2 au 6 juin.xlsx"
+                        },
+                        "tableFirstRow": {
+                            "label": "A-Z"
+                        },
+                        "includesHeaders": {
+                            "mode": "chose",
+                            "label": "Yes"
+                        },
+                        "valueRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted value"
+                        },
+                        "dateTimeRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted string"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "My Google connection (team5@eugeniaschool.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "from",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "valueRenderOption",
+                        "type": "select",
+                        "label": "Value render option",
+                        "validate": {
+                            "enum": [
+                                "FORMATTED_VALUE",
+                                "UNFORMATTED_VALUE",
+                                "FORMULA"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "dateTimeRenderOption",
+                        "type": "select",
+                        "label": "Date and time render option",
+                        "validate": {
+                            "enum": [
+                                "SERIAL_NUMBER",
+                                "FORMATTED_STRING"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "type": "uinteger",
+                        "label": "Limit"
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "select",
+                        "label": "Spreadsheet ID",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "select",
+                        "label": "Sheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "includesHeaders",
+                        "type": "select",
+                        "label": "Table contains headers",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tableFirstRow",
+                        "type": "select",
+                        "label": "Column range",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "A1:Z1",
+                                "A1:BZ1",
+                                "A1:CZ1",
+                                "A1:DZ1",
+                                "A1:MZ1",
+                                "A1:ZZ1",
+                                "A1:AZZ1",
+                                "A1:BZZ1",
+                                "A1:CZZ1",
+                                "A1:DZZ1",
+                                "A1:MZZ1",
+                                "A1:ZZZ1"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "type": "filter",
+                        "label": "Filter",
+                        "options": "rpc://google-sheets/2/rpcGetFilterKeys?includesHeaders=true"
+                    },
+                    {
+                        "name": "orderBy",
+                        "type": "select",
+                        "label": "Order by"
+                    },
+                    {
+                        "name": "sortOrder",
+                        "type": "select",
+                        "label": "Sort order",
+                        "validate": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "__IMTLENGTH__",
+                        "type": "uinteger",
+                        "label": "Total number of bundles"
+                    },
+                    {
+                        "name": "__IMTINDEX__",
+                        "type": "uinteger",
+                        "label": "Bundle order position"
+                    },
+                    {
+                        "name": "__ROW_NUMBER__",
+                        "type": "number",
+                        "label": "Row number"
+                    },
+                    {
+                        "name": "__SPREADSHEET_ID__",
+                        "type": "text",
+                        "label": "Spreadsheet ID"
+                    },
+                    {
+                        "name": "__SHEET__",
+                        "type": "text",
+                        "label": "Sheet"
+                    },
+                    {
+                        "name": "0",
+                        "type": "text",
+                        "label": "id (A)"
+                    },
+                    {
+                        "name": "1",
+                        "type": "text",
+                        "label": "nom (B)"
+                    },
+                    {
+                        "name": "2",
+                        "type": "text",
+                        "label": "Lundi (C)"
+                    },
+                    {
+                        "name": "3",
+                        "type": "text",
+                        "label": "Mardi (D)"
+                    },
+                    {
+                        "name": "4",
+                        "type": "text",
+                        "label": "Mercredi (E)"
+                    },
+                    {
+                        "name": "5",
+                        "type": "text",
+                        "label": "Jeudi (F)"
+                    },
+                    {
+                        "name": "6",
+                        "type": "text",
+                        "label": "Vendredi (G)"
+                    },
+                    {
+                        "name": "7",
+                        "type": "text",
+                        "label": "(H)"
+                    },
+                    {
+                        "name": "8",
+                        "type": "text",
+                        "label": "(I)"
+                    },
+                    {
+                        "name": "9",
+                        "type": "text",
+                        "label": "(J)"
+                    },
+                    {
+                        "name": "10",
+                        "type": "text",
+                        "label": "(K)"
+                    },
+                    {
+                        "name": "11",
+                        "type": "text",
+                        "label": "(L)"
+                    },
+                    {
+                        "name": "12",
+                        "type": "text",
+                        "label": "(M)"
+                    },
+                    {
+                        "name": "13",
+                        "type": "text",
+                        "label": "(N)"
+                    },
+                    {
+                        "name": "14",
+                        "type": "text",
+                        "label": "(O)"
+                    },
+                    {
+                        "name": "15",
+                        "type": "text",
+                        "label": "(P)"
+                    },
+                    {
+                        "name": "16",
+                        "type": "text",
+                        "label": "(Q)"
+                    },
+                    {
+                        "name": "17",
+                        "type": "text",
+                        "label": "(R)"
+                    },
+                    {
+                        "name": "18",
+                        "type": "text",
+                        "label": "(S)"
+                    },
+                    {
+                        "name": "19",
+                        "type": "text",
+                        "label": "(T)"
+                    },
+                    {
+                        "name": "20",
+                        "type": "text",
+                        "label": "(U)"
+                    },
+                    {
+                        "name": "21",
+                        "type": "text",
+                        "label": "(V)"
+                    },
+                    {
+                        "name": "22",
+                        "type": "text",
+                        "label": "(W)"
+                    },
+                    {
+                        "name": "23",
+                        "type": "text",
+                        "label": "(X)"
+                    },
+                    {
+                        "name": "24",
+                        "type": "text",
+                        "label": "(Y)"
+                    },
+                    {
+                        "name": "25",
+                        "type": "text",
+                        "label": "(Z)"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 31,
+            "module": "util:TextAggregator",
+            "version": 1,
+            "parameters": {
+                "feeder": 18,
+                "rowSeparator": "\n"
+            },
+            "mapper": {
+                "value": "id:{{18.`0`}},nom:{{18.`1`}}, lundi : {{18.`2`}}, mardi : {{18.`3`}}, Mercredi:{{18.`4`}}, Jeudi:{{18.`5`}}, Vendredi: {{18.`6`}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 2100,
+                    "y": 450
+                },
+                "restore": {
+                    "extra": {
+                        "feeder": {
+                            "label": "Google Sheets - Search Rows [18]"
+                        }
+                    },
+                    "parameters": {
+                        "rowSeparator": {
+                            "label": "New row"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "rowSeparator",
+                        "type": "select",
+                        "label": "Row separator",
+                        "validate": {
+                            "enum": [
+                                "\n",
+                                "\t",
+                                "other"
+                            ]
+                        }
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "value",
+                        "type": "text",
+                        "label": "Text"
+                    }
+                ],
+                "advanced": true
+            }
+        },
+        {
+            "id": 35,
+            "module": "openai-gpt-3:messageAssistantAdvanced",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 8749968
+            },
+            "mapper": {
+                "role": "user",
+                "message": "Tu es un générateur de message Slack Block Kit.  \nTa réponse doit être **exclusivement** un objet JSON commençant par “{” et finissant par “}”, sans balises ni texte autour.\n\nDonnées fournies :  \n1. Un fichier CSV dont la première ligne contient les en-têtes : ID, Name, Lundi, Mardi, Mercredi, Jeudi, Vendredi.  \n2. La variable TARGET_ID qui désigne l’utilisateur pour lequel il faut présélectionner les jours de télétravail.  \n3. Tu dois répondre directement en JSON (code Slack Block Kit valide), sans ```json ni autres délimiteurs.  \n4. **Tu dois générer les CINQ jours (Lundi → Vendredi) ; aucun jour ne doit être omis, même si la colonne est vide ou absente dans le CSV.**  \n5. dans section \"Sélectionnez vos jours de télétravail\" mettre entre parenthese le nombre de personne presente ce jour la exemple: \"🌅 Lundi (3 persnnes sur site auj)\"\n\nRègles de traitement :  \n• Lis tout le CSV ; considère qu’une cellule vaut “présentiel” si elle contient “présentiel” (insensible à la casse) et “TT” pour télétravail si elle contient “tt”. Vide ou autre valeur = “Non défini”.  \n• Pour chaque jour, compte le nombre de lignes “présentiel” → c’est le nombre de collègues au bureau à afficher entre parenthèses dans l’étiquette du checkbox.  \n• Pour TARGET_ID, décide si le jour est présélectionné : coche (`initial_options`) si la valeur ≠ “présentiel”.  \n• Conserve l’ordre des jours : Lundi, Mardi, Mercredi, Jeudi, Vendredi. Valeurs `value` : monday, tuesday, wednesday, thursday, friday (minuscule).  \n• Emojis fixes : 🌅 Lundi, 🔥 Mardi, ⚡ Mercredi, 🚀 Jeudi, 🎉 Vendredi.  \n• Vue d’équipe :  \n  – Champ « 🏢 » = liste alphabétique des collègues “présentiel” pour ce jour (prénoms séparés par des virgules).  \n  – Champ « 🏠 » = liste alphabétique des collègues “TT” pour ce jour.  \n  – Si aucune donnée “présentiel” ou “TT” pour un jour, affiche « – » après l’emoji correspondant, ex. `\"*🚀 Jeudi*\\n🏢 –\\n🏠 –\"` (mais inclure quand même le jour).  \n• Format attendu :\n\n{\n  \"blocks\": [\n    {section intro},\n    {actions + checkboxes + initial_options},\n    {\"type\": \"divider\"},\n    {section titre vue équipe},\n    {section fields = 5 champs mrkdwn (un par jour, ordre lundi→vendredi)},\n    {context légende}\n  ]\n}\n\nExemple de champ mrkdwn :  \n\"*🌅 Lundi*\\n🏢 Marie, Lucas\\n🏠 Chloé, Hugo\"  \nChaque chaîne doit rester < 150 caractères pour Slack.\n\nEntrées :  \nCSV = {{31.text}}\nTARGET_ID = {{1.id}}\n\nRenvoie uniquement l’objet JSON final, sans commentaire ni texte supplémentaire.\n3. donne moi la reponse directement en json, ton code doit commencer par \"{\" et finir par \"}\"\nje ne veux surtout pas de \njson ou de\n\n4. tu ne dois oublier de remplir aucun jour du lundi au vendredi\n\nrepond uniquement par le code json directement et le formatage dois focntionner avec slack block kit builder",
+                "assistantId": "asst_mLvMNUCYrSgX20cvO6k4lqH6",
+                "response_format": "json_object",
+                "parseJSONResponse": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 2400,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "role": {
+                            "label": "User"
+                        },
+                        "model": {
+                            "mode": "chose"
+                        },
+                        "tools": {
+                            "mode": "chose"
+                        },
+                        "image_urls": {
+                            "mode": "chose"
+                        },
+                        "assistantId": {
+                            "mode": "chose",
+                            "label": "Greymitsy assistant (gpt-4o)",
+                            "nested": []
+                        },
+                        "image_files": {
+                            "mode": "chose"
+                        },
+                        "tool_choice": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "response_format": {
+                            "mode": "chose",
+                            "label": "JSON Object"
+                        },
+                        "parseJSONResponse": {
+                            "mode": "chose"
+                        },
+                        "truncation_strategy": {
+                            "mode": "chose",
+                            "label": "Empty"
+                        },
+                        "file_search_resources": {
+                            "mode": "chose"
+                        },
+                        "code_interpreter_resources": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "openai-gpt-3"
+                            },
+                            "label": "My OpenAI connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:openai-gpt-3",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "assistantId",
+                        "type": "select",
+                        "label": "Assistant",
+                        "required": true
+                    },
+                    {
+                        "name": "role",
+                        "type": "select",
+                        "label": "Role",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "user",
+                                "assistant"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "threadId",
+                        "type": "text",
+                        "label": "Thread ID"
+                    },
+                    {
+                        "name": "model",
+                        "type": "select",
+                        "label": "Model"
+                    },
+                    {
+                        "name": "tools",
+                        "type": "select",
+                        "label": "Tools",
+                        "multiple": true,
+                        "validate": {
+                            "enum": [
+                                "file_search",
+                                "code_interpreter"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "file_search_resources",
+                        "type": "select",
+                        "label": "File Search Resources"
+                    },
+                    {
+                        "name": "code_interpreter_resources",
+                        "type": "select",
+                        "label": "Code Interpreter Resources",
+                        "multiple": true,
+                        "validate": {
+                            "maxItems": 20
+                        }
+                    },
+                    {
+                        "name": "tool_choice",
+                        "type": "select",
+                        "label": "Tool Choice",
+                        "validate": {
+                            "enum": [
+                                "none",
+                                "auto",
+                                "required",
+                                "file_search",
+                                "code_interpreter",
+                                "function"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "instructions",
+                        "type": "text",
+                        "label": "Instructions"
+                    },
+                    {
+                        "name": "max_prompt_tokens",
+                        "type": "uinteger",
+                        "label": "Max Prompt Tokens"
+                    },
+                    {
+                        "name": "max_completion_tokens",
+                        "type": "uinteger",
+                        "label": "Max Completion Tokens"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "number",
+                        "label": "Temperature",
+                        "validate": {
+                            "max": 2,
+                            "min": 0
+                        }
+                    },
+                    {
+                        "name": "top_p",
+                        "type": "number",
+                        "label": "Top P",
+                        "validate": {
+                            "max": 1,
+                            "min": 0
+                        }
+                    },
+                    {
+                        "name": "response_format",
+                        "type": "select",
+                        "label": "Response Format",
+                        "validate": {
+                            "enum": [
+                                "auto",
+                                "json_object",
+                                "text"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "truncation_strategy",
+                        "type": "select",
+                        "label": "Truncation Strategy",
+                        "validate": {
+                            "enum": [
+                                "auto",
+                                "last_messages"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "message",
+                        "type": "text",
+                        "label": "Message",
+                        "required": true
+                    },
+                    {
+                        "name": "image_files",
+                        "type": "select",
+                        "label": "Image Files",
+                        "multiple": true
+                    },
+                    {
+                        "name": "image_urls",
+                        "spec": {
+                            "name": "value",
+                            "type": "url",
+                            "label": "Image URL",
+                            "required": true
+                        },
+                        "type": "array",
+                        "label": "Image URLs"
+                    },
+                    {
+                        "name": "parseJSONResponse",
+                        "type": "boolean",
+                        "label": "Parse JSON Response",
+                        "required": true
+                    }
+                ],
+                "advanced": true
+            }
+        },
+        {
+            "id": 36,
+            "module": "dust:talkToAgent",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 8787406
+            },
+            "mapper": {
+                "email": "pmalychev@eugeniaschool.com",
+                "message": "Id de l'employé= {{41.`0`}}\nnom de l'employé= {{41.`1`}}",
+                "timezone": "Europe/Paris",
+                "username": "TT agent",
+                "agent_configuration_id": "pcUHJQOpBj"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 2700,
+                    "y": 450
+                },
+                "restore": {
+                    "expect": {
+                        "agent_configuration_id": {
+                            "mode": "chose",
+                            "label": "TT_ai"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "dust2"
+                            },
+                            "label": "My Dust connection (Connected to Dust (US))"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:dust2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "agent_configuration_id",
+                        "type": "select",
+                        "label": "Agent",
+                        "required": true
+                    },
+                    {
+                        "name": "message",
+                        "type": "text",
+                        "label": "Message",
+                        "required": true
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "label": "Username",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "type": "email",
+                        "label": "Email address",
+                        "required": true
+                    },
+                    {
+                        "name": "timezone",
+                        "type": "text",
+                        "label": "Timezone",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 33,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 3000,
+                    "y": 450
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 39,
+                            "module": "slack:CreateMessage",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 8745033
+                            },
+                            "mapper": {
+                                "parse": false,
+                                "blocks": "{\n    \"blocks\": [\n        {\n            \"type\": \"section\",\n            \"text\": {\n                \"type\": \"mrkdwn\",\n                \"text\": \"🚨 *Recommandations intelligentes :*\\n• 💡 {{replace(trim(36.agent_response); \"\\:cite[cc]\\\"; \"\\\\\")}}\"\n            }\n        }\n    ]\n}\n",
+                                "mrkdwn": true,
+                                "channel": "C08VCCU8JP3",
+                                "channelWType": "manualy"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 3300,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "parse": {
+                                            "mode": "chose"
+                                        },
+                                        "mrkdwn": {
+                                            "mode": "chose"
+                                        },
+                                        "link_names": {
+                                            "mode": "chose"
+                                        },
+                                        "channelWType": {
+                                            "label": "Enter manually"
+                                        },
+                                        "unfurl_links": {
+                                            "mode": "chose"
+                                        },
+                                        "unfurl_media": {
+                                            "mode": "chose"
+                                        },
+                                        "reply_broadcast": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "slack2"
+                                            },
+                                            "label": "My Slack (user) connection (hackathonwttj.slack.com - pmalychev)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:slack2,slack3",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "channelWType",
+                                        "type": "select",
+                                        "label": "Enter a channel ID or name",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "manualy",
+                                                "list"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "text",
+                                        "type": "text",
+                                        "label": "Text"
+                                    },
+                                    {
+                                        "name": "blocks",
+                                        "type": "text",
+                                        "label": "Blocks"
+                                    },
+                                    {
+                                        "name": "thread_ts",
+                                        "type": "text",
+                                        "label": "Thread message ID (time stamp)"
+                                    },
+                                    {
+                                        "name": "reply_broadcast",
+                                        "type": "boolean",
+                                        "label": "Reply broadcast"
+                                    },
+                                    {
+                                        "name": "link_names",
+                                        "type": "boolean",
+                                        "label": "Link names"
+                                    },
+                                    {
+                                        "name": "parse",
+                                        "type": "boolean",
+                                        "label": "Parse message text"
+                                    },
+                                    {
+                                        "name": "mrkdwn",
+                                        "type": "boolean",
+                                        "label": "Use markdown"
+                                    },
+                                    {
+                                        "name": "unfurl_links",
+                                        "type": "boolean",
+                                        "label": "Unfurl primarily text-based content"
+                                    },
+                                    {
+                                        "name": "unfurl_media",
+                                        "type": "boolean",
+                                        "label": "Unfurl media content"
+                                    },
+                                    {
+                                        "name": "icon_emoji",
+                                        "type": "text",
+                                        "label": "Icon emoji"
+                                    },
+                                    {
+                                        "name": "icon_url",
+                                        "type": "url",
+                                        "label": "Icon url"
+                                    },
+                                    {
+                                        "name": "username",
+                                        "type": "text",
+                                        "label": "User name"
+                                    },
+                                    {
+                                        "name": "channel",
+                                        "type": "text",
+                                        "label": "Channel ID or name",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 21,
+                            "module": "slack:CreateMessage",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 8745033
+                            },
+                            "mapper": {
+                                "parse": false,
+                                "blocks": "{{35.content[].text.value}}",
+                                "mrkdwn": true,
+                                "channel": "C08VCCU8JP3",
+                                "channelWType": "manualy"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 3300,
+                                    "y": 300
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "parse": {
+                                            "mode": "chose"
+                                        },
+                                        "mrkdwn": {
+                                            "mode": "chose"
+                                        },
+                                        "link_names": {
+                                            "mode": "chose"
+                                        },
+                                        "channelWType": {
+                                            "label": "Enter manually"
+                                        },
+                                        "unfurl_links": {
+                                            "mode": "chose"
+                                        },
+                                        "unfurl_media": {
+                                            "mode": "chose"
+                                        },
+                                        "reply_broadcast": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "slack2"
+                                            },
+                                            "label": "My Slack (user) connection (hackathonwttj.slack.com - pmalychev)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:slack2,slack3",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "channelWType",
+                                        "type": "select",
+                                        "label": "Enter a channel ID or name",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "manualy",
+                                                "list"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "text",
+                                        "type": "text",
+                                        "label": "Text"
+                                    },
+                                    {
+                                        "name": "blocks",
+                                        "type": "text",
+                                        "label": "Blocks"
+                                    },
+                                    {
+                                        "name": "thread_ts",
+                                        "type": "text",
+                                        "label": "Thread message ID (time stamp)"
+                                    },
+                                    {
+                                        "name": "reply_broadcast",
+                                        "type": "boolean",
+                                        "label": "Reply broadcast"
+                                    },
+                                    {
+                                        "name": "link_names",
+                                        "type": "boolean",
+                                        "label": "Link names"
+                                    },
+                                    {
+                                        "name": "parse",
+                                        "type": "boolean",
+                                        "label": "Parse message text"
+                                    },
+                                    {
+                                        "name": "mrkdwn",
+                                        "type": "boolean",
+                                        "label": "Use markdown"
+                                    },
+                                    {
+                                        "name": "unfurl_links",
+                                        "type": "boolean",
+                                        "label": "Unfurl primarily text-based content"
+                                    },
+                                    {
+                                        "name": "unfurl_media",
+                                        "type": "boolean",
+                                        "label": "Unfurl media content"
+                                    },
+                                    {
+                                        "name": "icon_emoji",
+                                        "type": "text",
+                                        "label": "Icon emoji"
+                                    },
+                                    {
+                                        "name": "icon_url",
+                                        "type": "url",
+                                        "label": "Icon url"
+                                    },
+                                    {
+                                        "name": "username",
+                                        "type": "text",
+                                        "label": "User name"
+                                    },
+                                    {
+                                        "name": "channel",
+                                        "type": "text",
+                                        "label": "Channel ID or name",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 34,
+                            "module": "slack:CreateMessage",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 8745033
+                            },
+                            "mapper": {
+                                "parse": false,
+                                "blocks": "{\n    \"blocks\": [\n        {\n            \"type\": \"section\",\n            \"text\": {\n                \"type\": \"mrkdwn\",\n                \"text\": \"```\\n╭─────────┬─────────┬─────────┬─────────┬─────────╮\\n│   LUN   │   MAR   │   MER   │   JEU   │   VEN   │\\n├─────────┼─────────┼─────────┼─────────┼─────────┤\\n│    {{3.emoji_lundi}}   │   {{3.emoji_mardi}}    │    {{3.emoji_mercredi}}   │   {{3.emoji_jeudi}}     │   {{3.emoji_vendredi}}    │\\n╰─────────┴─────────┴─────────┴─────────┴─────────╯\\n```\"\n            }\n        }\n    ]\n}\n",
+                                "mrkdwn": true,
+                                "channel": "C08VCCU8JP3",
+                                "channelWType": "manualy"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 3300,
+                                    "y": 600
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "parse": {
+                                            "mode": "chose"
+                                        },
+                                        "mrkdwn": {
+                                            "mode": "chose"
+                                        },
+                                        "link_names": {
+                                            "mode": "chose"
+                                        },
+                                        "channelWType": {
+                                            "label": "Enter manually"
+                                        },
+                                        "unfurl_links": {
+                                            "mode": "chose"
+                                        },
+                                        "unfurl_media": {
+                                            "mode": "chose"
+                                        },
+                                        "reply_broadcast": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "slack2"
+                                            },
+                                            "label": "My Slack (user) connection (hackathonwttj.slack.com - pmalychev)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:slack2,slack3",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "channelWType",
+                                        "type": "select",
+                                        "label": "Enter a channel ID or name",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "manualy",
+                                                "list"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "text",
+                                        "type": "text",
+                                        "label": "Text"
+                                    },
+                                    {
+                                        "name": "blocks",
+                                        "type": "text",
+                                        "label": "Blocks"
+                                    },
+                                    {
+                                        "name": "thread_ts",
+                                        "type": "text",
+                                        "label": "Thread message ID (time stamp)"
+                                    },
+                                    {
+                                        "name": "reply_broadcast",
+                                        "type": "boolean",
+                                        "label": "Reply broadcast"
+                                    },
+                                    {
+                                        "name": "link_names",
+                                        "type": "boolean",
+                                        "label": "Link names"
+                                    },
+                                    {
+                                        "name": "parse",
+                                        "type": "boolean",
+                                        "label": "Parse message text"
+                                    },
+                                    {
+                                        "name": "mrkdwn",
+                                        "type": "boolean",
+                                        "label": "Use markdown"
+                                    },
+                                    {
+                                        "name": "unfurl_links",
+                                        "type": "boolean",
+                                        "label": "Unfurl primarily text-based content"
+                                    },
+                                    {
+                                        "name": "unfurl_media",
+                                        "type": "boolean",
+                                        "label": "Unfurl media content"
+                                    },
+                                    {
+                                        "name": "icon_emoji",
+                                        "type": "text",
+                                        "label": "Icon emoji"
+                                    },
+                                    {
+                                        "name": "icon_url",
+                                        "type": "url",
+                                        "label": "Icon url"
+                                    },
+                                    {
+                                        "name": "username",
+                                        "type": "text",
+                                        "label": "User name"
+                                    },
+                                    {
+                                        "name": "channel",
+                                        "type": "text",
+                                        "label": "Channel ID or name",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 44,
+                            "module": "slack:CreateMessage",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 8745033
+                            },
+                            "mapper": {
+                                "parse": false,
+                                "blocks": "{\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"📊 Voir stats complètes\"\n\t\t\t\t\t},\n\t\t\t\t\t\"action_id\": \"view_detailed_stats\",\n\t\t\t\t\t\"url\": \"https://hook.eu2.make.com/t961swrh2lkjvpjhtdel8mg806qbpt4a\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"context\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\t\"text\": \"💬 Vous pourrez modifier votre planning à tout moment\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}",
+                                "mrkdwn": true,
+                                "channel": "C08VCCU8JP3",
+                                "channelWType": "manualy"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 3162,
+                                    "y": 892
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "parse": {
+                                            "mode": "chose"
+                                        },
+                                        "mrkdwn": {
+                                            "mode": "chose"
+                                        },
+                                        "link_names": {
+                                            "mode": "chose"
+                                        },
+                                        "channelWType": {
+                                            "label": "Enter manually"
+                                        },
+                                        "unfurl_links": {
+                                            "mode": "chose"
+                                        },
+                                        "unfurl_media": {
+                                            "mode": "chose"
+                                        },
+                                        "reply_broadcast": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "slack2"
+                                            },
+                                            "label": "My Slack (user) connection (hackathonwttj.slack.com - pmalychev)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:slack2,slack3",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "channelWType",
+                                        "type": "select",
+                                        "label": "Enter a channel ID or name",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "manualy",
+                                                "list"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "text",
+                                        "type": "text",
+                                        "label": "Text"
+                                    },
+                                    {
+                                        "name": "blocks",
+                                        "type": "text",
+                                        "label": "Blocks"
+                                    },
+                                    {
+                                        "name": "thread_ts",
+                                        "type": "text",
+                                        "label": "Thread message ID (time stamp)"
+                                    },
+                                    {
+                                        "name": "reply_broadcast",
+                                        "type": "boolean",
+                                        "label": "Reply broadcast"
+                                    },
+                                    {
+                                        "name": "link_names",
+                                        "type": "boolean",
+                                        "label": "Link names"
+                                    },
+                                    {
+                                        "name": "parse",
+                                        "type": "boolean",
+                                        "label": "Parse message text"
+                                    },
+                                    {
+                                        "name": "mrkdwn",
+                                        "type": "boolean",
+                                        "label": "Use markdown"
+                                    },
+                                    {
+                                        "name": "unfurl_links",
+                                        "type": "boolean",
+                                        "label": "Unfurl primarily text-based content"
+                                    },
+                                    {
+                                        "name": "unfurl_media",
+                                        "type": "boolean",
+                                        "label": "Unfurl media content"
+                                    },
+                                    {
+                                        "name": "icon_emoji",
+                                        "type": "text",
+                                        "label": "Icon emoji"
+                                    },
+                                    {
+                                        "name": "icon_url",
+                                        "type": "url",
+                                        "label": "Icon url"
+                                    },
+                                    {
+                                        "name": "username",
+                                        "type": "text",
+                                        "label": "User name"
+                                    },
+                                    {
+                                        "name": "channel",
+                                        "type": "text",
+                                        "label": "Channel ID or name",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
